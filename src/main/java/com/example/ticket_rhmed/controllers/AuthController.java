@@ -43,10 +43,12 @@ public class AuthController {
         Optional<User> user = respository.findByEmail(body.email());
 
         if (user.isEmpty()) {
-            User newUser = new User();
-            newUser.setName(body.name());
-            newUser.setEmail(body.email());
-            newUser.setPassword(passwordEncoder.encode(body.password()));
+            User newUser = new User(
+                body.name(), 
+                body.email(), 
+                passwordEncoder.encode(body.password()), 
+                body.role()
+            );
             respository.save(newUser);
 
             String token = tokenService.generateToken(newUser);
