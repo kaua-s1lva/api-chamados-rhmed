@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import com.example.ticket_rhmed.models.User;
+import com.example.ticket_rhmed.models.UserRole;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class TicketRhmedApplicationTests {
@@ -14,7 +15,7 @@ class TicketRhmedApplicationTests {
 
 	@Test
 	void testCreateUserSuccess() {
-		User user = new User("Kauã", "kaua@gmail.com", "123456");
+		User user = new User("Kauã", "kaua@gmail.com", "123456", UserRole.USER);
 
 		webTestClient
 			.post()
