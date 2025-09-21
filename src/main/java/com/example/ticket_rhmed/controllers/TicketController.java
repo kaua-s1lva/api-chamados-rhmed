@@ -1,7 +1,9 @@
 package com.example.ticket_rhmed.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ticket_rhmed.dto.TicketRequestDTO;
+import com.example.ticket_rhmed.dto.TicketResponseDTO;
 import com.example.ticket_rhmed.dto.TicketUpdateDTO;
 import com.example.ticket_rhmed.models.Ticket;
 import com.example.ticket_rhmed.models.TicketStatus;
@@ -43,13 +46,19 @@ public class TicketController {
     }
 
     @GetMapping
-    public List<Ticket> list() {
-        return ticketService.getAllTickets();
+    public List<TicketResponseDTO> list() {
+        return ticketService.getAllTickets().stream()
+            .map(TicketResponseDTO::new)
+            .collect(Collectors.toList());
     }
 
     @GetMapping("{id}")
-    public Ticket show(@PathVariable("id") Long id) {
-        return ticketService.getTicketById(id);
+    public ResponseEntity<TicketResponseDTO> show(@PathVariable("id") Long id) {
+        Ticket ticket = ticketService.getTicketById(id);
+        if (ticket == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(new TicketResponseDTO(ticket));
     }
 
     @PutMapping
