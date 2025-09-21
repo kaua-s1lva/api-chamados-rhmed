@@ -9,12 +9,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.example.ticket_rhmed.models.User;
-import com.example.ticket_rhmed.repositories.UserRespository;
+import com.example.ticket_rhmed.repositories.UserRepository;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserRespository respository;
+    private UserRepository respository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

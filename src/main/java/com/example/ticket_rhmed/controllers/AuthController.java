@@ -14,7 +14,7 @@ import com.example.ticket_rhmed.dto.RegisterRequestDTO;
 import com.example.ticket_rhmed.dto.ResponseDTO;
 import com.example.ticket_rhmed.infra.security.TokenService;
 import com.example.ticket_rhmed.models.User;
-import com.example.ticket_rhmed.repositories.UserRespository;
+import com.example.ticket_rhmed.repositories.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
-    private final UserRespository respository;
+    private final UserRepository respository;
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;
 
@@ -55,6 +55,7 @@ public class AuthController {
             return ResponseEntity.ok(new ResponseDTO(newUser.getName(), token));
         } else {
             return ResponseEntity.badRequest().build();
+            //return ResponseEntity.status(409).body("User with this email already exists.");
         }
     }
 }
