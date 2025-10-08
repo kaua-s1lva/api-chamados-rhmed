@@ -2,7 +2,10 @@ package com.example.ticket_rhmed.models;
 
 import java.time.LocalDate;
 
+import com.example.ticket_rhmed.state.StatusTicketState;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -55,6 +58,41 @@ public class Ticket {
     @NonNull
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TicketStatus status;
+    private TicketStatus status = TicketStatus.ABERTO;
+
+    @Embedded
+    private StatusTicketState statusTicketState;
+
+    public void analyze(Ticket ticket) {
+        this.statusTicketState.analyze(ticket);
+    }
+
+    public void requestInformation(Ticket ticket) {
+        this.statusTicketState.requestInformation(ticket);
+    }
+
+    public void approveAnalysis(Ticket ticket) {
+        this.statusTicketState.approveAnalysis(ticket);
+    }
+
+    public void validate(Ticket ticket) {
+        this.statusTicketState.validate(ticket);
+    }
+
+    public void approveValidation(Ticket ticket) {
+        this.statusTicketState.approveValidation(ticket);
+    }
+
+    public void rejectValidation(Ticket ticket) {
+        this.statusTicketState.rejectValidation(ticket);
+    }
+
+    public void cancel(Ticket ticket) {
+        this.statusTicketState.cancel(ticket);
+    }
+
+    public void complete(Ticket ticket) {
+        this.statusTicketState.complete(ticket);
+    }
 
 }

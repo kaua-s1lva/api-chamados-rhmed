@@ -11,6 +11,13 @@
 	<groupId>com.example</groupId>
 	<artifactId>ticket-rhmed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>core</module>
+		<module>application</module>
+		<module>infrastructure</module>
+		<module>usecase</module>
+	</modules>
 	<name>ticket-rhmed</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>

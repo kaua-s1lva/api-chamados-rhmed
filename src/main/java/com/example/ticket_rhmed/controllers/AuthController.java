@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ticket_rhmed.dto.LoginRequestDTO;
-import com.example.ticket_rhmed.dto.RegisterRequestDTO;
-import com.example.ticket_rhmed.dto.ResponseDTO;
+import com.example.ticket_rhmed.dto.auth.LoginRequestDTO;
+import com.example.ticket_rhmed.dto.auth.RegisterRequestDTO;
+import com.example.ticket_rhmed.dto.auth.ResponseDTO;
 import com.example.ticket_rhmed.infra.security.TokenService;
 import com.example.ticket_rhmed.models.User;
 import com.example.ticket_rhmed.repositories.UserRepository;

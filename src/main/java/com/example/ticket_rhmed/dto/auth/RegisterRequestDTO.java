@@ -1,4 +1,4 @@
-package com.example.ticket_rhmed.dto;
+package com.example.ticket_rhmed.dto.auth;
 
 import com.example.ticket_rhmed.models.UserRole;
 

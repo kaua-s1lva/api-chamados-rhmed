@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ticket_rhmed.dto.TicketRequestDTO;
-import com.example.ticket_rhmed.dto.TicketResponseDTO;
-import com.example.ticket_rhmed.dto.TicketUpdateDTO;
+import com.example.ticket_rhmed.dto.ticket.TicketRequestDTO;
+import com.example.ticket_rhmed.dto.ticket.TicketResponseDTO;
+import com.example.ticket_rhmed.dto.ticket.TicketUpdateDTO;
 import com.example.ticket_rhmed.models.Ticket;
-import com.example.ticket_rhmed.models.TicketStatus;
 import com.example.ticket_rhmed.models.User;
 import com.example.ticket_rhmed.service.TicketService;
 
@@ -37,7 +36,6 @@ public class TicketController {
         newTicket.setCode(ticket.code());
         newTicket.setTitle(ticket.title());
         newTicket.setDescription(ticket.description());
-        newTicket.setStatus(TicketStatus.ABERTO);
         newTicket.setPriority(ticket.priority());
         newTicket.setTerm(ticket.term());
         newTicket.setRequester(currentUser);
@@ -72,6 +70,9 @@ public class TicketController {
             existingTicket.setDescription(ticketData.description());
         }
         if (ticketData.status() != null) {
+            if (ticketData.status() != existingTicket.getStatus()) {
+                
+            }
             existingTicket.setStatus(ticketData.status());
         }
         if (ticketData.priority() != null) {
@@ -80,8 +81,8 @@ public class TicketController {
         if (ticketData.term() != null) {
             existingTicket.setTerm(ticketData.term());
         }
-        
-        ticketService.updateTicket(existingTicket);
+
+
     }
 
     @DeleteMapping("{id}")

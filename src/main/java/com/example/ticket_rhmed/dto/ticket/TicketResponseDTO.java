@@ -1,5 +1,6 @@
-package com.example.ticket_rhmed.dto;
+package com.example.ticket_rhmed.dto.ticket;
 
+import com.example.ticket_rhmed.dto.UserSummaryDTO;
 import com.example.ticket_rhmed.models.Ticket;
 import com.example.ticket_rhmed.models.TicketPriority;
 import com.example.ticket_rhmed.models.TicketStatus;

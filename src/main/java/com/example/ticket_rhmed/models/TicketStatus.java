@@ -3,8 +3,12 @@ package com.example.ticket_rhmed.models;
 public enum TicketStatus {
     
     ABERTO("aberto"),
-    EM_ANDAMENTO("em_andamento"),
-    ENCERRADO("encerrado");
+    EM_ANALISE("em_analise"),
+    AGUARDANDO_INFORMACOES("aguardando_informacoes"),
+    EM_DESENVOLVIMENTO("em_desenvolvimento"),
+    AGUARDANDO_APROVACAO("aguardando_aprovacao"),
+    CONCLUIDO("concluido"),
+    CANCELADO("cancelado");
 
     private final String status;
 
