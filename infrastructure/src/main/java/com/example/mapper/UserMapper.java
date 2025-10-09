@@ -29,4 +29,26 @@ public class UserMapper {
             UserRoleEnum.USER
         );
     }
+/*
+ *     LocalDate term,
+    TicketPriorityEnum priority,
+    User requester,
+    TicketStatusEnum status,
+    LocalDate createdAt,
+    LocalDate updatedAt
+ */
+    // public User toUser(EditUserRequest request) {
+    //     return new User(
+    //         request.id(),
+    //         request.code(),
+    //         request.title(),
+    //         request.description(),
+    //         request.term(),
+    //         request.priority(),
+    //         request.requester(),
+    //         request.status(),
+    //         request.createdAt(),
+    //         request.updatedAt()
+    //     );
+    // }
 }

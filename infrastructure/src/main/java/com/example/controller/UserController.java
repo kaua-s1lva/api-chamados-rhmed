@@ -9,14 +9,14 @@ import com.example.dto.request.CreateUserRequest;
 import com.example.dto.response.BaseResponse;
 import com.example.mapper.UserMapper;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("api/v1/user")
 public class UserController {
     
-    private CreateUserUseCase createUserUseCase;
-    private UserMapper userMapper;
+    private final CreateUserUseCase createUserUseCase;
+    private final UserMapper userMapper;
 
     public UserController(CreateUserUseCase createUserUseCase, UserMapper userMapper) {
         this.createUserUseCase = createUserUseCase;

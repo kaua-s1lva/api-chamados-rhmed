@@ -23,6 +23,7 @@ public class CreateUserGatewayImpl implements CreateUserGateway {
             userEntityRepository.save(userMapper.toUserEntity(user));
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
