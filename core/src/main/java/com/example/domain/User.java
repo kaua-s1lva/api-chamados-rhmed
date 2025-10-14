@@ -61,4 +61,8 @@ public class User {
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

@@ -18,6 +18,5 @@ public class CreateTicketUseCaseImpl implements CreateTicketUseCase {
         if (!createTicketGateway.create(ticket)) {
             throw new InternalServerErrorException(ErrorCodeEnum.TKT001.getMessage(), ErrorCodeEnum.TKT001.getCode());
         }
-        createTicketGateway.create(ticket);
     }
 }

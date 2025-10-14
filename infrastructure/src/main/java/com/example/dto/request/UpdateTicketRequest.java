@@ -2,7 +2,6 @@ package com.example.dto.request;
 
 import java.time.LocalDate;
 
-import com.example.domain.User;
 import com.example.domain.enums.TicketPriorityEnum;
 import com.example.domain.enums.TicketStatusEnum;
 import com.example.entity.UserEntity;

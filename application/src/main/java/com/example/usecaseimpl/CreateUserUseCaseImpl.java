@@ -18,13 +18,19 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     }
 
     @Override
-    public void create(User user) throws EmailException, InternalServerErrorException{
+    public String create(User user) throws EmailException, InternalServerErrorException{
         if (!emailAvailableUseCase.emailAvailableEmail(user.getEmail())) {
             throw new EmailException(ErrorCodeEnum.USR001.getMessage(), ErrorCodeEnum.USR001.getCode());
         }
 
-        if (!createUserGateway.create(user)) {
+        String token = createUserGateway.create(user);
+        if (token == null) {
             throw new InternalServerErrorException(ErrorCodeEnum.USR002.getMessage(), ErrorCodeEnum.USR002.getCode());
         }
+        return token;
+
+        // if (createUserGateway.create(user)) {
+        //     throw new InternalServerErrorException(ErrorCodeEnum.USR002.getMessage(), ErrorCodeEnum.USR002.getCode());
+        // }
     }
 }

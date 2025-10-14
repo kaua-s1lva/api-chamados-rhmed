@@ -26,13 +26,13 @@ public class TicketMapper {
         );
     }
 
-    public Ticket toTicket(CreateTicketRequest request) {
+    public Ticket toTicket(CreateTicketRequest request, com.example.domain.User user) {
         return new Ticket(
             request.title(),
             request.description(),
             request.term(),
             request.priority(),
-            request.requester()
+            user
         );
     }
 

@@ -13,11 +13,12 @@ public class UserAuthenticateUseCaseImpl implements UserAuthenticateUseCase {
     }
 
     @Override
-    public Boolean authenticate(String email, String password) throws AuthenticateException {
-        if (!userAuthenticateGateway.authenticate(email, password)) {
+    public String authenticate(String email, String password) throws AuthenticateException {
+        String token = userAuthenticateGateway.authenticate(email, password);
+        if (token == null) {
             throw new AuthenticateException(ErrorCodeEnum.ATH001.getMessage(), ErrorCodeEnum.ATH001.getCode());
         }
-        return true;
+        return token;
     }
 
 }

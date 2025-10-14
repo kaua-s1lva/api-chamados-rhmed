@@ -9,6 +9,5 @@ public record CreateTicketRequest(
     String title, 
     String description, 
     LocalDate term, 
-    TicketPriorityEnum priority, 
-    User requester
+    TicketPriorityEnum priority
 ) {}

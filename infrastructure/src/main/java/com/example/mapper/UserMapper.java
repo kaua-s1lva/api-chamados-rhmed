@@ -21,6 +21,18 @@ public class UserMapper {
         );
     }
 
+    public User toUser(UserEntity entity) {
+        return new User(
+            entity.getId(),
+            entity.getName(),
+            entity.getEmail(),
+            entity.getPassword(),
+            entity.getRole(),
+            entity.getCreateAt(),
+            entity.getUpdateAt()
+        );
+    }
+
     public User toUser(CreateUserRequest request) {
         return new User(
             request.name(),

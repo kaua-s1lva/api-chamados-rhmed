@@ -1,30 +1,40 @@
 package com.example.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.User;
 import com.example.gateway.CreateUserGateway;
 import com.example.mapper.UserMapper;
 import com.example.repository.UserEntityRepository;
+import com.example.security.TokenSecurityService;
 
 @Service
 public class CreateUserGatewayImpl implements CreateUserGateway {
-    private UserEntityRepository userEntityRepository;
-    private UserMapper userMapper;
+    private final UserEntityRepository userEntityRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final TokenSecurityService tokenService;
+    private final UserMapper userMapper;
 
-    public CreateUserGatewayImpl(UserEntityRepository userEntityRepository, UserMapper userMapper) {
+    public CreateUserGatewayImpl(UserEntityRepository userEntityRepository, UserMapper userMapper, PasswordEncoder passwordEncoder, TokenSecurityService tokenService) {
         this.userEntityRepository = userEntityRepository;
         this.userMapper = userMapper;
+        this.passwordEncoder = passwordEncoder;
+        this.tokenService = tokenService;
     }
 
     @Override
-    public Boolean create(User user) {
+    public String create(User user) {
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userEntityRepository.save(userMapper.toUserEntity(user));
-            return true;
+
+            String token = tokenService.generateToken(userMapper.toUserEntity(user));
+            return token;
+            
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 }
