@@ -36,4 +36,20 @@ public class TicketMapper {
         );
     }
 
+    public Ticket toTicket(TicketEntity entity) {
+        return new Ticket(
+            entity.getId(),
+            entity.getCode(),
+            entity.getTitle(),
+            entity.getDescription(),
+            entity.getTerm(),
+            entity.getPriority(),
+            userMapper.toUser(entity.getRequester()),
+            entity.getStatus(),
+            entity.getCreatedAt(),
+            entity.getUpdatedAt()
+        );
+    }
+
+
 }
