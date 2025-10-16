@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import com.example.dto.response.BaseResponse;
 import com.example.dto.response.LoginUserResponse;
 import com.example.mapper.UserMapper;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
@@ -28,15 +30,21 @@ public class UserController {
         this.userAuthenticateUseCase = userAuthenticateUseCase;
     }
 
+    // @PostMapping("/register")
+    // public BaseResponse<LoginUserResponse> create(@RequestBody CreateUserRequest request) throws Exception {
+    //     //implementar log
+    //     String token = createUserUseCase.create(userMapper.toUser(request));
+    //     return BaseResponse.<LoginUserResponse>builder()
+    //         .success(true)
+    //         .message("Usuário criado com sucesso")
+    //         .result(new LoginUserResponse(token))
+    //         .build();
+    // }
+
     @PostMapping("/register")
-    public BaseResponse<LoginUserResponse> create(@RequestBody CreateUserRequest request) throws Exception {
-        //implementar log
+    public ResponseEntity<LoginUserResponse> create(@Valid @RequestBody CreateUserRequest request) throws Exception {
         String token = createUserUseCase.create(userMapper.toUser(request));
-        return BaseResponse.<LoginUserResponse>builder()
-            .success(true)
-            .message("Usuário criado com sucesso")
-            .result(new LoginUserResponse(token))
-            .build();
+        return ResponseEntity.ok(new LoginUserResponse(token));
     }
 
     @PostMapping("/login")
