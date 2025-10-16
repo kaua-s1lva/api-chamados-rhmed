@@ -15,7 +15,7 @@ public class InAnalysisTicketState extends TicketStatusState {
 
     @Override
     public void approveAnalysis() {
-        ticket.changeState(new ApprovedAnalysisTicketState(ticket));
+        ticket.changeState(new InDevelopmentTicketState(ticket));
     }
 
     @Override

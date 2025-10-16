@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.AnalyzeTicketUseCase;
+import com.example.ChangeTicketStatusUseCase;
 import com.example.CreateTicketUseCase;
+import com.example.dto.request.ActionTicketRequest;
 import com.example.dto.request.CreateTicketRequest;
 import com.example.dto.response.BaseResponse;
-import com.example.entity.TicketEntity;
 import com.example.entity.UserEntity;
 import com.example.mapper.TicketMapper;
 import com.example.mapper.UserMapper;
@@ -21,20 +21,20 @@ import com.example.mapper.UserMapper;
 @RequestMapping("api/v1/ticket")
 public class TicketController {
     private final CreateTicketUseCase createTicketUseCase;
-    private final AnalyzeTicketUseCase analyzeTicketUseCase;
     private final TicketMapper ticketMapper;
     private final UserMapper userMapper;
+    private final ChangeTicketStatusUseCase changeTicketStatusUseCase;
 
     public TicketController(
         CreateTicketUseCase createTicketUseCase, 
         TicketMapper ticketMapper, 
         UserMapper userMapper,
-        AnalyzeTicketUseCase analyzeTicketUseCase
+        ChangeTicketStatusUseCase changeTicketStatusUseCase
     ) {
         this.createTicketUseCase = createTicketUseCase;
         this.ticketMapper = ticketMapper;
         this.userMapper = userMapper;
-        this.analyzeTicketUseCase = analyzeTicketUseCase;
+        this.changeTicketStatusUseCase = changeTicketStatusUseCase;
     }
 
     @PostMapping
@@ -43,9 +43,14 @@ public class TicketController {
         return BaseResponse.<String>builder().success(true).message("Ticket criado com sucesso").build();
     }
 
-    @PutMapping("/analyze/{ticketId}")
-    public BaseResponse<String> analyzeTicket(@PathVariable Long ticketId, @AuthenticationPrincipal UserEntity userEntity) throws Exception {
-        analyzeTicketUseCase.analyze(ticketId, userMapper.toUser(userEntity));
-        return BaseResponse.<String>builder().success(true).message("Ticket analisado com sucesso").build();
+    @PutMapping("/{ticketId}/action")
+    public BaseResponse<String> change(
+        @PathVariable Long ticketId,
+        @RequestBody ActionTicketRequest request,
+        @AuthenticationPrincipal UserEntity userEntity
+    ) throws Exception {
+        changeTicketStatusUseCase.change(ticketId, request.action(), userMapper.toUser(userEntity), request.comment());
+        return BaseResponse.<String>builder().success(true).message("Ação realizada com sucesso").build();
     }
+
 }

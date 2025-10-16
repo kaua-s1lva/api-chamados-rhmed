@@ -12,11 +12,11 @@ import com.example.mapper.TicketMapper;
 import com.example.repository.TicketEntityRepository;
 
 @Service
-public class AnalyzeTicketGatewayImpl implements ChangeTicketStatusGateway {
+public class ApproveValidationTicketGatewayImpl implements ChangeTicketStatusGateway {
     private final TicketEntityRepository ticketEntityRepository;
     private final TicketMapper ticketMapper;
 
-    public AnalyzeTicketGatewayImpl(TicketEntityRepository ticketEntityRepository, TicketMapper ticketMapper) {
+    public ApproveValidationTicketGatewayImpl(TicketEntityRepository ticketEntityRepository, TicketMapper ticketMapper) {
         this.ticketEntityRepository = ticketEntityRepository;
         this.ticketMapper = ticketMapper;
     }
@@ -29,7 +29,7 @@ public class AnalyzeTicketGatewayImpl implements ChangeTicketStatusGateway {
         if (!ticket.getRequester().equals(user)) {
             throw new ChangeStateException(ErrorCodeEnum.TKT005.getMessage(), ErrorCodeEnum.TKT005.getCode());
         }
-        ticket.analyze();
+        ticket.approveValidation();
         ticketEntityRepository.save(ticketMapper.toTicketEntity(ticket));
         return true;
     }

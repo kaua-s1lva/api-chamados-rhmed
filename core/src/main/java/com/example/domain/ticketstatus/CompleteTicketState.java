@@ -3,13 +3,15 @@ package com.example.domain.ticketstatus;
 import com.example.domain.Ticket;
 import com.example.domain.enums.TicketStatusEnum;
 
-public class CanceledTicketState extends TicketStatusState{
-    public CanceledTicketState(Ticket ticket) {
+public class CompleteTicketState extends TicketStatusState {
+
+    public CompleteTicketState(Ticket ticket){
         super(ticket);
     }
 
     @Override
     public TicketStatusEnum getStatus() {
-        return TicketStatusEnum.CANCELADO;
+        return TicketStatusEnum.CONCLUIDO;
     }
+    
 }

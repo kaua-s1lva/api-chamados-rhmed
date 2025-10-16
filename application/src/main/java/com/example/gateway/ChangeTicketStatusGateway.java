@@ -1,8 +1,9 @@
 package com.example.gateway;
 
-import com.example.domain.Ticket;
-import com.example.domain.ticketstatus.TicketStatusState;
+import com.example.domain.User;
+import com.example.domain.enums.TicketActionEnum;
+import com.example.domain.exception.ChangeStateException;
 
 public interface ChangeTicketStatusGateway {
-    Boolean change(Ticket ticket, TicketStatusState state);
+    Boolean change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException;
 }

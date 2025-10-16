@@ -12,6 +12,10 @@ public class TicketStatusStateFactory {
         states.put(TicketStatusEnum.ABERTO, new OpenTicketState(ticket));
         states.put(TicketStatusEnum.EM_ANALISE, new InAnalysisTicketState(ticket));
         states.put(TicketStatusEnum.AGUARDANDO_INFORMACOES, new RequestedInformationTicketState(ticket));
+        states.put(TicketStatusEnum.EM_DESENVOLVIMENTO, new InDevelopmentTicketState(ticket));
+        states.put(TicketStatusEnum.AGUARDANDO_APROVACAO, new WaitingApprovalTicketState(ticket));
+        states.put(TicketStatusEnum.CONCLUIDO, new CompleteTicketState(ticket));
+        states.put(TicketStatusEnum.CANCELADO, new CanceledTicketState(ticket));
     }
 
     public TicketStatusState create(TicketStatusEnum status) {
