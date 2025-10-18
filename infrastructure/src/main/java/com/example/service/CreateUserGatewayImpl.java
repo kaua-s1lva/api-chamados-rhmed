@@ -4,6 +4,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.User;
+import com.example.domain.exception.CreateUserException;
+import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.gateway.CreateUserGateway;
 import com.example.mapper.UserMapper;
 import com.example.repository.UserEntityRepository;
@@ -33,8 +35,7 @@ public class CreateUserGatewayImpl implements CreateUserGateway {
             return token;
             
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            throw new CreateUserException(ErrorCodeEnum.USR002.getMessage() + ": " + e.getMessage(), ErrorCodeEnum.USR002.getCode());
         }
     }
 }

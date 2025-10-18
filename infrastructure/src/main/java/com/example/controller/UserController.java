@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public BaseResponse<LoginUserResponse> login(@RequestBody LoginUserRequest request) throws Exception {
+    public BaseResponse<LoginUserResponse> login(@Valid @RequestBody LoginUserRequest request) throws Exception {
         //implementar log
         String token = userAuthenticateUseCase.authenticate(request.email(), request.password());
         return BaseResponse.<LoginUserResponse>builder()

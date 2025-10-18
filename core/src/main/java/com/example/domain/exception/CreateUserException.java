@@ -1,9 +1,9 @@
 package com.example.domain.exception;
 
-public class InternalServerErrorException extends Exception {
+public class CreateUserException extends RuntimeException {
     private final String code;
 
-    public InternalServerErrorException(String message, String code) {
+    public CreateUserException(String message, String code) {
         super(message);
         this.code = code;
     }

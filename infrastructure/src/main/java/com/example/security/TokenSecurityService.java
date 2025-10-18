@@ -11,6 +11,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.example.domain.exception.AuthenticateException;
+import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.entity.UserEntity;
 
 @Service
@@ -42,7 +44,7 @@ public class TokenSecurityService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception) {
-            return null;
+            throw new AuthenticateException(ErrorCodeEnum.ATH003.getMessage(), ErrorCodeEnum.ATH003.getCode());
         }
     }
 

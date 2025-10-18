@@ -6,6 +6,7 @@ import com.example.domain.Ticket;
 import com.example.domain.User;
 import com.example.domain.enums.TicketActionEnum;
 import com.example.domain.exception.ChangeStateException;
+import com.example.domain.exception.NotFoundException;
 import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.gateway.ChangeTicketStatusGateway;
 import com.example.mapper.TicketMapper;
@@ -24,7 +25,7 @@ public class AnalyzeTicketGatewayImpl implements ChangeTicketStatusGateway {
     @Override
     public Boolean change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException {
         Ticket ticket = ticketMapper.toTicket(ticketEntityRepository.findById(ticketId).orElseThrow(
-            () -> new ChangeStateException(ErrorCodeEnum.TKT003.getMessage(), ErrorCodeEnum.TKT003.getCode())
+            () -> new NotFoundException(ErrorCodeEnum.TKT003.getMessage(), ErrorCodeEnum.TKT003.getCode())
         ));
         if (!ticket.getRequester().equals(user)) {
             throw new ChangeStateException(ErrorCodeEnum.TKT005.getMessage(), ErrorCodeEnum.TKT005.getCode());

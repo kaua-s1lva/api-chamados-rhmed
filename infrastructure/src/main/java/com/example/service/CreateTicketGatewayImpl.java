@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.Ticket;
+import com.example.domain.exception.CreateTicketException;
+import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.entity.TicketEntity;
 import com.example.entity.TicketHistoryEntity;
 import com.example.gateway.CreateTicketGateway;
@@ -38,7 +40,7 @@ public class CreateTicketGatewayImpl implements CreateTicketGateway {
             var ticketEntity = ticketEntityRepository.save(ticketMapper.toTicketEntity(ticket));
             registryAssist(ticketEntity);
         } catch (Exception e) {
-            return false;
+            throw new CreateTicketException(ErrorCodeEnum.TKT001.getMessage() + ": " + e.getMessage(), ErrorCodeEnum.TKT001.getCode());
         }
         return true;
     }

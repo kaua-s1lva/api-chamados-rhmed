@@ -3,6 +3,8 @@ package com.example.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.domain.exception.AuthenticateException;
+import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.entity.UserEntity;
 import com.example.gateway.UserAuthenticateGateway;
 import com.example.repository.UserEntityRepository;
@@ -22,13 +24,15 @@ public class UserAuthenticateGatewayImpl implements UserAuthenticateGateway {
 
     @Override
     public String authenticate(String email, String password) {
-        UserEntity userEntity = userEntityRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+        UserEntity userEntity = userEntityRepository.findByEmail(email).orElseThrow(
+            () -> new AuthenticateException(ErrorCodeEnum.ATH001.getMessage(), ErrorCodeEnum.ATH001.getCode())
+        );
 
         if (passwordEncoder.matches(password, userEntity.getPassword())) {
             String token = tokenService.generateToken(userEntity);
             return token;
         } else {
-            return null;
+            throw new AuthenticateException(ErrorCodeEnum.ATH002.getMessage(), ErrorCodeEnum.ATH002.getCode());
         }
         
     }

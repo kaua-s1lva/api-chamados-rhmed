@@ -1,9 +1,9 @@
 package com.example.domain.exception;
 
-public class InternalServerErrorException extends Exception {
+public class NotFoundException extends RuntimeException {
     private final String code;
 
-    public InternalServerErrorException(String message, String code) {
+    public NotFoundException(String message, String code) {
         super(message);
         this.code = code;
     }
