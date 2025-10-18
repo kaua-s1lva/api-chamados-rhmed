@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,21 +29,15 @@ public class UserController {
         this.userAuthenticateUseCase = userAuthenticateUseCase;
     }
 
-    // @PostMapping("/register")
-    // public BaseResponse<LoginUserResponse> create(@RequestBody CreateUserRequest request) throws Exception {
-    //     //implementar log
-    //     String token = createUserUseCase.create(userMapper.toUser(request));
-    //     return BaseResponse.<LoginUserResponse>builder()
-    //         .success(true)
-    //         .message("Usuário criado com sucesso")
-    //         .result(new LoginUserResponse(token))
-    //         .build();
-    // }
-
     @PostMapping("/register")
-    public ResponseEntity<LoginUserResponse> create(@Valid @RequestBody CreateUserRequest request) throws Exception {
+    public BaseResponse<LoginUserResponse> create(@Valid @RequestBody CreateUserRequest request) throws Exception {
+        //implementar log
         String token = createUserUseCase.create(userMapper.toUser(request));
-        return ResponseEntity.ok(new LoginUserResponse(token));
+        return BaseResponse.<LoginUserResponse>builder()
+            .success(true)
+            .message("Usuário criado com sucesso")
+            .result(new LoginUserResponse(token))
+            .build();
     }
 
     @PostMapping("/login")

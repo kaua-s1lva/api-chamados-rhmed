@@ -2,7 +2,6 @@ package com.example.entity;
 
 import java.time.LocalDate;
 
-import com.example.domain.enums.TicketPriorityEnum;
 import com.example.domain.enums.TicketStatusEnum;
 
 import jakarta.persistence.Column;
@@ -16,51 +15,41 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tickets")
-public class TicketEntity {
+@Getter
+@Setter
+@Table(name = "ticket_history")
+public class TicketHistoryEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", nullable = false, unique = true)
-    private String code;
-
-    @Column(name = "title", nullable = false)
-    private String title;
-
-    @Column(name = "description", nullable = false)
-    private String description;
-
-    @Column(name = "term", nullable = false)
-    private LocalDate term;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "priority", nullable = false)
-    private TicketPriorityEnum priority;
-
     @ManyToOne
-    @JoinColumn(name = "requester_id", nullable = false)
-    private UserEntity requester;
+    @JoinColumn(name = "ticket_id", nullable = false)
+    private TicketEntity ticket;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private TicketStatusEnum status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity user;
+
+    @Column(name = "comment", nullable = false)
+    private String comment;
 
     @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDate updatedAt;
-
-    public TicketStatusEnum getStatus() {
-        return status;
-    }
     
 }
