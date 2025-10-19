@@ -4,6 +4,7 @@ public enum ErrorCodeEnum {
     USR001("Email indisponível", "USR001"),
     USR002("Houve um erro ao criar o usuário", "USR002"),
     USR003("Usuário ou senha inválidos", "USR003"),
+    USR004("Usuário não autorizado", "USR004"),
 
     ATH001("Usuário não encontrado", "ATH001"),
     ATH002("Senha inválida", "ATH002"),

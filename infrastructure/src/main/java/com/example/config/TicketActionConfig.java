@@ -7,20 +7,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.example.domain.enums.TicketActionEnum;
-import com.example.gateway.ChangeTicketStatusGateway;
-import com.example.service.AnalyzeTicketGatewayImpl;
-import com.example.service.ApproveAnalysisTicketGatewayImpl;
-import com.example.service.ApproveValidationTicketGatewayImpl;
-import com.example.service.CancelTicketGatewayImpl;
-import com.example.service.CompleteTicketGatewayImpl;
-import com.example.service.RejectValidationTicketGatewayImpl;
-import com.example.service.RequestInformationTicketGatewayImpl;
-import com.example.service.ValidateTicketGatewayImpl;
+import com.example.gateway.ChangeTicketStatusHandlerGateway;
+import com.example.service.tickethandler.AnalyzeTicketGatewayImpl;
+import com.example.service.tickethandler.ApproveAnalysisTicketGatewayImpl;
+import com.example.service.tickethandler.ApproveValidationTicketGatewayImpl;
+import com.example.service.tickethandler.CancelTicketGatewayImpl;
+import com.example.service.tickethandler.CompleteTicketGatewayImpl;
+import com.example.service.tickethandler.RejectValidationTicketGatewayImpl;
+import com.example.service.tickethandler.RequestInformationTicketGatewayImpl;
+import com.example.service.tickethandler.ValidateTicketGatewayImpl;
 
 @Configuration
 public class TicketActionConfig {
     @Bean
-    public Map<TicketActionEnum, ChangeTicketStatusGateway> actionMap(
+    public Map<TicketActionEnum, ChangeTicketStatusHandlerGateway> actionMap(
         AnalyzeTicketGatewayImpl analyze,
         ValidateTicketGatewayImpl validate,
         ApproveAnalysisTicketGatewayImpl approveAnalysisTicket,
@@ -30,7 +30,7 @@ public class TicketActionConfig {
         CompleteTicketGatewayImpl complete,
         CancelTicketGatewayImpl cancel
     ) {
-        Map<TicketActionEnum,ChangeTicketStatusGateway> map = new EnumMap<>(TicketActionEnum.class);
+        Map<TicketActionEnum,ChangeTicketStatusHandlerGateway> map = new EnumMap<>(TicketActionEnum.class);
         map.put(TicketActionEnum.ANALYZE, analyze);
         map.put(TicketActionEnum.VALIDATE, validate);
         map.put(TicketActionEnum.APPROVE_ANALYSIS, approveAnalysisTicket);

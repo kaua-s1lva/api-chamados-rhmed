@@ -14,8 +14,8 @@ public class UpdateTicketUseCaseImpl implements UpdateTicketUseCase {
     }
 
     @Override
-    public void update(Ticket ticket) throws TicketException {
-        if (!updateTicketGateway.update(ticket)) {
+    public void update(Long ticketId, Ticket ticket) throws TicketException {
+        if (!updateTicketGateway.update(ticketId, ticket)) {
             throw new TicketException(ErrorCodeEnum.TKT002.getMessage(), ErrorCodeEnum.TKT002.getCode());
         }
     }

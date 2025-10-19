@@ -5,12 +5,16 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.ChangeTicketStatusUseCase;
 import com.example.CreateTicketUseCase;
+import com.example.UpdateTicketUseCase;
 import com.example.gateway.ChangeTicketStatusGateway;
 import com.example.gateway.CreateTicketGateway;
+import com.example.gateway.UpdateTicketGateway;
 import com.example.mapper.TicketMapper;
 import com.example.mapper.UserMapper;
+import com.example.security.IAuthenticationFacade;
 import com.example.usecaseimpl.ChangeTicketStatusUseCaseImpl;
 import com.example.usecaseimpl.CreateTicketUseCaseImpl;
+import com.example.usecaseimpl.UpdateTicketUseCaseImpl;
 
 @Configuration
 public class TicketConfig {
@@ -20,8 +24,8 @@ public class TicketConfig {
     }
 
     @Bean
-    public TicketMapper ticketMapper(UserMapper userMapper) {
-        return new TicketMapper(userMapper);
+    public TicketMapper ticketMapper(UserMapper userMapper, IAuthenticationFacade authenticationFacade) {
+        return new TicketMapper(userMapper, authenticationFacade);
     }
 
     @Bean
@@ -29,8 +33,8 @@ public class TicketConfig {
         return new ChangeTicketStatusUseCaseImpl(changeTicketStatusGateway);
     }
 
-    // @Bean
-    // public AnalyzeTicketUseCase analyzeTicketUseCase(AnalyzeTicketGateway analyzeTicketGateway) {
-    //     return new AnalyzeTicketUseCaseImpl(analyzeTicketGateway);
-    // }
+    @Bean
+    public UpdateTicketUseCase updateTicketGateway(UpdateTicketGateway updateTicketGateway) {
+        return new UpdateTicketUseCaseImpl(updateTicketGateway);
+    }
 }

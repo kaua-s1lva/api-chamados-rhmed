@@ -1,14 +1,20 @@
 package com.example.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.example.domain.Ticket;
 import com.example.dto.request.SaveTicketRequest;
 import com.example.entity.TicketEntity;
+import com.example.security.IAuthenticationFacade;
 
+@Component
 public class TicketMapper {
     private final UserMapper userMapper;
+    private final IAuthenticationFacade authenticationFacade;
 
-    public TicketMapper(UserMapper userMapper) {
+    public TicketMapper(UserMapper userMapper, IAuthenticationFacade authenticationFacade) {
         this.userMapper = userMapper;
+        this.authenticationFacade = authenticationFacade;
     }
 
     public TicketEntity toTicketEntity(Ticket ticket) {
@@ -26,13 +32,13 @@ public class TicketMapper {
         );
     }
 
-    public Ticket toTicket(SaveTicketRequest request, com.example.domain.User user) {
+    public Ticket toTicket(SaveTicketRequest request) {
         return new Ticket(
             request.title(),
             request.description(),
             request.term(),
             request.priority(),
-            user
+            userMapper.toUser(authenticationFacade.getAuthenticatedUser())
         );
     }
 

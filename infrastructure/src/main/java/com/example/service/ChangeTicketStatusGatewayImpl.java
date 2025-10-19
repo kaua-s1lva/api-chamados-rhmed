@@ -3,58 +3,70 @@ package com.example.service;
 import java.time.LocalDate;
 import java.util.Map;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import com.example.domain.Ticket;
 import com.example.domain.User;
 import com.example.domain.enums.TicketActionEnum;
+import com.example.domain.exception.NotFoundException;
+import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.entity.TicketHistoryEntity;
-import com.example.entity.TicketEntity;
 import com.example.gateway.ChangeTicketStatusGateway;
+import com.example.gateway.ChangeTicketStatusHandlerGateway;
+import com.example.mapper.TicketMapper;
 import com.example.mapper.UserMapper;
 import com.example.repository.TicketHistoryEntityRepository;
+import com.example.security.IAuthenticationFacade;
 import com.example.repository.TicketEntityRepository;
 
 @Service
-@Primary
 public class ChangeTicketStatusGatewayImpl implements ChangeTicketStatusGateway {
-    private final Map<TicketActionEnum, ChangeTicketStatusGateway> actionMap;
+    private final Map<TicketActionEnum, ChangeTicketStatusHandlerGateway> actionMap;
     private final TicketHistoryEntityRepository assistyTicketEntityRepository;
     private final TicketEntityRepository ticketEntityRepository;
     private final UserMapper userMapper;
+    private final TicketMapper ticketMapper;
+    private final IAuthenticationFacade authenticationFacade;
 
     public ChangeTicketStatusGatewayImpl(
-        Map<TicketActionEnum, ChangeTicketStatusGateway> actionMap,
+        Map<TicketActionEnum, ChangeTicketStatusHandlerGateway> actionMap,
         TicketHistoryEntityRepository assistyTicketEntityRepository,
         TicketEntityRepository ticketEntityRepository,
-        UserMapper userMapper
+        UserMapper userMapper,
+        IAuthenticationFacade authenticationFacade,
+        TicketMapper ticketMapper
     ) {
         this.actionMap = actionMap;
         this.assistyTicketEntityRepository = assistyTicketEntityRepository;
         this.ticketEntityRepository = ticketEntityRepository;
         this.userMapper = userMapper;
+        this.authenticationFacade = authenticationFacade;
+        this.ticketMapper = ticketMapper;
     }
 
     @Override
-    public void change(Long ticketId, TicketActionEnum action, User user, String comment) {
+    public void change(Long ticketId, TicketActionEnum action, String comment) {
 
-        ChangeTicketStatusGateway handler = actionMap.get(action);
+        ChangeTicketStatusHandlerGateway handler = actionMap.get(action);
         if (handler == null) {
             throw new IllegalArgumentException("Ação não suportada");
         }
 
-        handler.change(ticketId, action, user, comment);
-        registryAssist(ticketId, action, user, comment);
+        User user = userMapper.toUser(authenticationFacade.getAuthenticatedUser());
+
+        Ticket ticket = ticketMapper.toTicket(ticketEntityRepository.findById(ticketId).orElseThrow(
+            () -> new NotFoundException(ErrorCodeEnum.TKT003.getMessage(), ErrorCodeEnum.TKT003.getCode())
+        ));
+
+        handler.changeStatus(ticket, user, comment);
+        registryAssist(ticket, action, user, comment);
     }
 
-    private void registryAssist(Long ticketId, TicketActionEnum action, User user, String comment) {
-        TicketEntity ticketEntity = ticketEntityRepository.findById(ticketId).orElseThrow(
-            () -> new IllegalArgumentException("Ticket not found")
-        );
+    private void registryAssist(Ticket ticket, TicketActionEnum action, User user, String comment) {
 
         TicketHistoryEntity ticketHistoryEntity = new TicketHistoryEntity();
-        ticketHistoryEntity.setTicket(ticketEntity);
-        ticketHistoryEntity.setStatus(ticketEntity.getStatus());
+        ticketHistoryEntity.setTicket(ticketMapper.toTicketEntity(ticket));
+        ticketHistoryEntity.setStatus(ticket.getStatus());
         ticketHistoryEntity.setUser(userMapper.toUserEntity(user));
         ticketHistoryEntity.setComment(comment);
         ticketHistoryEntity.setCreatedAt(LocalDate.now());
