@@ -1,7 +1,7 @@
 package com.example.mapper;
 
 import com.example.domain.Ticket;
-import com.example.dto.request.CreateTicketRequest;
+import com.example.dto.request.SaveTicketRequest;
 import com.example.entity.TicketEntity;
 
 public class TicketMapper {
@@ -26,7 +26,7 @@ public class TicketMapper {
         );
     }
 
-    public Ticket toTicket(CreateTicketRequest request, com.example.domain.User user) {
+    public Ticket toTicket(SaveTicketRequest request, com.example.domain.User user) {
         return new Ticket(
             request.title(),
             request.description(),

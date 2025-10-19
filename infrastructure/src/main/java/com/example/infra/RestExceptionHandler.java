@@ -127,11 +127,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(CreateTicketException.class)
-    public ResponseEntity<BaseResponse<Object>> handleCreateTicketException(CreateTicketException ex) {
+    @ExceptionHandler(TicketException.class)
+    public ResponseEntity<BaseResponse<Object>> handleCreateTicketException(TicketException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getMessage(), null);
         BaseResponse<Object> baseResponse = BaseResponse.builder().success(false).error(errorResponse).build();
-        logger.warn("Ticket creation failed: {}", ex.getMessage());
+        logger.warn("Ticket operation failed: {}", ex.getMessage());
         return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
     }
     
