@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.example.domain.User;
 import com.example.domain.enums.UserRoleEnum;
-import com.example.dto.request.CreateUserRequest;
+import com.example.dto.request.SaveUserRequest;
 import com.example.entity.UserEntity;
 
 @Component
@@ -33,7 +33,7 @@ public class UserMapper {
         );
     }
 
-    public User toUser(CreateUserRequest request) {
+    public User toUser(SaveUserRequest request) {
         return new User(
             request.name(),
             request.email(),

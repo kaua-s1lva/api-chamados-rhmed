@@ -119,8 +119,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(baseResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(CreateUserException.class)
-    public ResponseEntity<BaseResponse<Object>> handleCreateUserException(CreateUserException ex) {
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<BaseResponse<Object>> handleCreateUserException(UserException ex) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getCode(), ex.getMessage(), null);
         BaseResponse<Object> baseResponse = BaseResponse.builder().success(false).error(errorResponse).build();
         logger.warn("User creation failed: {}", ex.getMessage());
