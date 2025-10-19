@@ -16,7 +16,7 @@ public class WaitingApprovalTicketState extends TicketStatusState {
 
     @Override
     public void rejectValidation() {
-        ticket.changeState(new CanceledTicketState(ticket));
+        ticket.changeState(new InDevelopmentTicketState(ticket));
     }
 
     @Override

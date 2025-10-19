@@ -1,6 +1,6 @@
 package com.example.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
@@ -69,8 +69,8 @@ public class ChangeTicketStatusGatewayImpl implements ChangeTicketStatusGateway 
         ticketHistoryEntity.setStatus(ticket.getStatus());
         ticketHistoryEntity.setUser(userMapper.toUserEntity(user));
         ticketHistoryEntity.setComment(comment);
-        ticketHistoryEntity.setCreatedAt(LocalDate.now());
-        ticketHistoryEntity.setUpdatedAt(LocalDate.now());
+        ticketHistoryEntity.setCreatedAt(LocalDateTime.now());
+        ticketHistoryEntity.setUpdatedAt(LocalDateTime.now());
         
         assistyTicketEntityRepository.save(ticketHistoryEntity);
     }

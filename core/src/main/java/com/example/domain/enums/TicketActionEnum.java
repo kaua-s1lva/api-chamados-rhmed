@@ -7,6 +7,5 @@ public enum TicketActionEnum {
     APPROVE_VALIDATION,
     REJECT_VALIDATION,
     VALIDATE,
-    COMPLETE,
     CANCEL
 }

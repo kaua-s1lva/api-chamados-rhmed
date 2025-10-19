@@ -1,6 +1,7 @@
 package com.example.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import com.example.domain.enums.TicketPriorityEnum;
@@ -18,8 +19,8 @@ public class Ticket {
     private TicketPriorityEnum priority;
     private User requester;
     private TicketStatusState status;
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -53,11 +54,11 @@ public class Ticket {
         return status.getStatus();
     }
 
-    public LocalDate getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public LocalDate getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
@@ -73,12 +74,12 @@ public class Ticket {
         this.priority = priority;
         this.requester = requester;
         this.status = new OpenTicketState(this);
-        this.createdAt = LocalDate.now();
-        this.updatedAt = LocalDate.now();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     public Ticket(Long id, String code, String title, String description, LocalDate term, TicketPriorityEnum priority,
-            User requester, TicketStatusEnum status, LocalDate createdAt, LocalDate updatedAt) {
+            User requester, TicketStatusEnum status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.code = code;
         this.title = title;
@@ -121,10 +122,6 @@ public class Ticket {
 
     public void cancel() {
         this.status.cancel();
-    }
-
-    public void complete() {
-        this.status.complete();
     }
     
 }

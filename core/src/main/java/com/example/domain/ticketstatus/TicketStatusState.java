@@ -41,8 +41,4 @@ public abstract class TicketStatusState {
     public void cancel() {
         throw new ChangeStateException(ErrorCodeEnum.TKT006.getMessage() + ". Estado atual: " + this.getStatus().name(), ErrorCodeEnum.TKT006.getCode());
     }
-
-    public void complete() {
-        throw new ChangeStateException(ErrorCodeEnum.TKT006.getMessage() + ". Estado atual: " + this.getStatus().name(), ErrorCodeEnum.TKT006.getCode());
-    }
 }

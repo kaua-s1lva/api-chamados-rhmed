@@ -22,8 +22,8 @@ public class AnalyzeTicketGatewayImpl implements ChangeTicketStatusHandlerGatewa
 
     @Override
     public void changeStatus(Ticket ticket, User user, String comment) throws ChangeStateException {
-        if (!ticket.getRequester().equals(user)) {
-            throw new ChangeStateException(ErrorCodeEnum.TKT005.getMessage(), ErrorCodeEnum.TKT005.getCode());
+        if (!ticket.getRequester().equals(user) || !user.isAdmin()) {
+            throw new ChangeStateException(ErrorCodeEnum.USR004.getMessage(), ErrorCodeEnum.USR004.getCode());
         }
         ticket.analyze();
         ticketEntityRepository.save(ticketMapper.toTicketEntity(ticket));

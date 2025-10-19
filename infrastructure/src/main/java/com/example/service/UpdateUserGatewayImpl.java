@@ -2,14 +2,11 @@ package com.example.service;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.domain.User;
-import com.example.domain.exception.NotFoundException;
-import com.example.domain.exception.enums.ErrorCodeEnum;
 import com.example.entity.UserEntity;
 import com.example.gateway.UpdateUserGateway;
 import com.example.repository.UserEntityRepository;

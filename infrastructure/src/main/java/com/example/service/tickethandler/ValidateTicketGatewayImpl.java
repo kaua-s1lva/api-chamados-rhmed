@@ -22,8 +22,8 @@ public class ValidateTicketGatewayImpl implements ChangeTicketStatusHandlerGatew
 
     @Override
     public void changeStatus(Ticket ticket, User user, String comment) throws ChangeStateException {
-        if (!ticket.getRequester().equals(user)) {
-            throw new ChangeStateException(ErrorCodeEnum.TKT005.getMessage(), ErrorCodeEnum.TKT005.getCode());
+        if (!user.isAdmin()) {
+            throw new ChangeStateException(ErrorCodeEnum.USR004.getMessage(), ErrorCodeEnum.TKT005.getCode());
         }
         ticket.validate();
         ticketEntityRepository.save(ticketMapper.toTicketEntity(ticket));

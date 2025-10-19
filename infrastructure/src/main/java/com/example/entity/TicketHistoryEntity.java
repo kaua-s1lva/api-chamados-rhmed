@@ -1,6 +1,6 @@
 package com.example.entity;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.example.domain.enums.TicketStatusEnum;
 
@@ -47,9 +47,9 @@ public class TicketHistoryEntity {
     private String comment;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
     
 }

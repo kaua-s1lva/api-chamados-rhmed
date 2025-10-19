@@ -1,5 +1,6 @@
 package com.example.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class UpdateTicketGatewayImpl implements UpdateTicketGateway {
         Optional.ofNullable(ticket.getDescription()).ifPresent(ticketEntity::setDescription);
         Optional.ofNullable(ticket.getPriority()).ifPresent(ticketEntity::setPriority);
         Optional.ofNullable(ticket.getTerm()).ifPresent(ticketEntity::setTerm);
+        ticketEntity.setUpdatedAt(LocalDateTime.now());
 
         ticketEntityRepository.save(ticketEntity);
         return true;

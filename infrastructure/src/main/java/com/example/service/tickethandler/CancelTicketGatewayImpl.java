@@ -22,7 +22,7 @@ public class CancelTicketGatewayImpl implements ChangeTicketStatusHandlerGateway
 
     @Override
     public void changeStatus(Ticket ticket, User user, String comment) throws ChangeStateException {
-        if (!ticket.getRequester().equals(user)) {
+        if (!ticket.getRequester().equals(user) || !user.isAdmin()) {
             throw new ChangeStateException(ErrorCodeEnum.TKT005.getMessage(), ErrorCodeEnum.TKT005.getCode());
         }
         ticket.cancel();

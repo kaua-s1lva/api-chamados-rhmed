@@ -1,6 +1,6 @@
 package com.example.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Service;
 
@@ -48,8 +48,8 @@ public class CreateTicketGatewayImpl implements CreateTicketGateway {
         ticketHistoryEntity.setStatus(ticket.getStatus());
         ticketHistoryEntity.setUser(ticket.getRequester());
         ticketHistoryEntity.setComment("Ticket criado pelo usuário");
-        ticketHistoryEntity.setCreatedAt(LocalDate.now());
-        ticketHistoryEntity.setUpdatedAt(LocalDate.now());
+        ticketHistoryEntity.setCreatedAt(LocalDateTime.now());
+        ticketHistoryEntity.setUpdatedAt(LocalDateTime.now());
         
         TicketHistoryEntityRepository.save(ticketHistoryEntity);
     }

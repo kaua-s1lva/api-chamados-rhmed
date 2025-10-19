@@ -66,6 +66,10 @@ public class User {
         this.password = password;
     }
 
+    public Boolean isAdmin() {
+        return this.role.equals(UserRoleEnum.ADMIN);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

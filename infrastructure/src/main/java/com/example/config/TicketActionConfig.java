@@ -12,7 +12,6 @@ import com.example.service.tickethandler.AnalyzeTicketGatewayImpl;
 import com.example.service.tickethandler.ApproveAnalysisTicketGatewayImpl;
 import com.example.service.tickethandler.ApproveValidationTicketGatewayImpl;
 import com.example.service.tickethandler.CancelTicketGatewayImpl;
-import com.example.service.tickethandler.CompleteTicketGatewayImpl;
 import com.example.service.tickethandler.RejectValidationTicketGatewayImpl;
 import com.example.service.tickethandler.RequestInformationTicketGatewayImpl;
 import com.example.service.tickethandler.ValidateTicketGatewayImpl;
@@ -27,7 +26,6 @@ public class TicketActionConfig {
         RequestInformationTicketGatewayImpl requestInformation,
         ApproveValidationTicketGatewayImpl approveValidation,
         RejectValidationTicketGatewayImpl rejectValidation,
-        CompleteTicketGatewayImpl complete,
         CancelTicketGatewayImpl cancel
     ) {
         Map<TicketActionEnum,ChangeTicketStatusHandlerGateway> map = new EnumMap<>(TicketActionEnum.class);
@@ -37,7 +35,6 @@ public class TicketActionConfig {
         map.put(TicketActionEnum.REQUEST_INFORMATION, requestInformation);
         map.put(TicketActionEnum.APPROVE_VALIDATION, approveValidation);
         map.put(TicketActionEnum.REJECT_VALIDATION, rejectValidation);
-        map.put(TicketActionEnum.COMPLETE, complete);
         map.put(TicketActionEnum.CANCEL, cancel);
         return map;
     }
