@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -40,6 +41,33 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.GEN002.getCode(), ErrorCodeEnum.GEN002.getMessage(), errors);
         BaseResponse<Object> baseResponse = BaseResponse.builder().success(false).error(errorResponse).build();
         logger.warn("Validation error: {}", errors);
+        return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            @NonNull HttpMessageNotReadableException ex,
+            @NonNull HttpHeaders headers,
+            @NonNull HttpStatusCode status,
+            @NonNull WebRequest request) {
+
+        String errorMessage = "Valor inválido para o campo. Os valores aceitos são: ";
+        Throwable cause = ex.getCause();
+
+        if (cause instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException) {
+            com.fasterxml.jackson.databind.exc.InvalidFormatException ife = (com.fasterxml.jackson.databind.exc.InvalidFormatException) cause;
+            if (ife.getTargetType() != null && ife.getTargetType().isEnum()) {
+                errorMessage += java.util.Arrays.stream(ife.getTargetType().getEnumConstants())
+                        .map(Object::toString)
+                        .collect(Collectors.joining(", "));
+            }
+        } else {
+            errorMessage = ex.getLocalizedMessage();
+        }
+
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCodeEnum.GEN002.getCode(), errorMessage, null);
+        BaseResponse<Object> baseResponse = BaseResponse.builder().success(false).error(errorResponse).build();
+        logger.warn("Invalid request format: {}", errorMessage);
         return new ResponseEntity<>(baseResponse, HttpStatus.BAD_REQUEST);
     }
 

@@ -17,6 +17,8 @@ import com.example.entity.UserEntity;
 import com.example.mapper.TicketMapper;
 import com.example.mapper.UserMapper;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("api/v1/ticket")
 public class TicketController {
@@ -38,7 +40,7 @@ public class TicketController {
     }
 
     @PostMapping
-    public BaseResponse<String> createTicket(@RequestBody CreateTicketRequest request, @AuthenticationPrincipal UserEntity userEntity) throws Exception {
+    public BaseResponse<String> createTicket(@RequestBody @Valid CreateTicketRequest request, @AuthenticationPrincipal UserEntity userEntity) throws Exception {
         createTicketUseCase.create(ticketMapper.toTicket(request, userMapper.toUser(userEntity)));
         return BaseResponse.<String>builder().success(true).message("Ticket criado com sucesso").build();
     }

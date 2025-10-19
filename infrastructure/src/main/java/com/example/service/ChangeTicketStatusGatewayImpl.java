@@ -36,20 +36,15 @@ public class ChangeTicketStatusGatewayImpl implements ChangeTicketStatusGateway 
     }
 
     @Override
-    public Boolean change(Long ticketId, TicketActionEnum action, User user, String comment) {
+    public void change(Long ticketId, TicketActionEnum action, User user, String comment) {
 
         ChangeTicketStatusGateway handler = actionMap.get(action);
         if (handler == null) {
             throw new IllegalArgumentException("Ação não suportada");
         }
 
-        try {
-            handler.change(ticketId, action, user, comment);
-        } catch (Exception e) {
-            return false;
-        }
+        handler.change(ticketId, action, user, comment);
         registryAssist(ticketId, action, user, comment);
-        return true;
     }
 
     private void registryAssist(Long ticketId, TicketActionEnum action, User user, String comment) {

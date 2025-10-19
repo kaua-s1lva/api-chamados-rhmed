@@ -11,7 +11,6 @@ import com.example.entity.TicketEntity;
 import com.example.entity.TicketHistoryEntity;
 import com.example.gateway.CreateTicketGateway;
 import com.example.mapper.TicketMapper;
-import com.example.mapper.UserMapper;
 import com.example.repository.TicketEntityRepository;
 import com.example.repository.TicketHistoryEntityRepository;
 
@@ -19,19 +18,16 @@ import com.example.repository.TicketHistoryEntityRepository;
 public class CreateTicketGatewayImpl implements CreateTicketGateway {
     private final TicketEntityRepository ticketEntityRepository;
     private final TicketMapper ticketMapper;
-    private final UserMapper userMapper;
     private final TicketHistoryEntityRepository TicketHistoryEntityRepository;
 
     public CreateTicketGatewayImpl(
         TicketEntityRepository ticketEntityRepository, 
         TicketMapper ticketMapper, 
-        TicketHistoryEntityRepository TicketHistoryEntityRepository,
-        UserMapper userMapper
+        TicketHistoryEntityRepository TicketHistoryEntityRepository
     ) {
         this.ticketEntityRepository = ticketEntityRepository;
         this.ticketMapper = ticketMapper;
         this.TicketHistoryEntityRepository = TicketHistoryEntityRepository;
-        this.userMapper = userMapper;
     }
 
     @Override

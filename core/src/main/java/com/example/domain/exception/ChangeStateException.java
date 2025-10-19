@@ -1,6 +1,6 @@
 package com.example.domain.exception;
 
-public class ChangeStateException extends Exception {
+public class ChangeStateException extends RuntimeException {
     private final String code;
 
     public ChangeStateException(String message, String code) {

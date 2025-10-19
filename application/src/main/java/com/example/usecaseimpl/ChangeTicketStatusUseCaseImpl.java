@@ -16,8 +16,6 @@ public class ChangeTicketStatusUseCaseImpl implements ChangeTicketStatusUseCase 
 
     @Override
     public void change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException {
-        if (!changeTicketStatusGateway.change(ticketId, action, user, comment)) {
-            throw new ChangeStateException(ErrorCodeEnum.TKT002.getMessage(), ErrorCodeEnum.TKT002.getCode());
-        }
+        changeTicketStatusGateway.change(ticketId, action, user, comment);
     }
 }

@@ -22,7 +22,7 @@ public class RequestInformationTicketGatewayImpl implements ChangeTicketStatusGa
     }
 
     @Override
-    public Boolean change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException {
+    public void change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException {
         Ticket ticket = ticketMapper.toTicket(ticketEntityRepository.findById(ticketId).orElseThrow(
             () -> new ChangeStateException(ErrorCodeEnum.TKT003.getMessage(), ErrorCodeEnum.TKT003.getCode())
         ));
@@ -31,6 +31,5 @@ public class RequestInformationTicketGatewayImpl implements ChangeTicketStatusGa
         }
         ticket.requestInformation();
         ticketEntityRepository.save(ticketMapper.toTicketEntity(ticket));
-        return true;
     }
 }

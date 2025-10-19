@@ -5,5 +5,5 @@ import com.example.domain.enums.TicketActionEnum;
 import com.example.domain.exception.ChangeStateException;
 
 public interface ChangeTicketStatusGateway {
-    Boolean change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException;
+    void change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException;
 }

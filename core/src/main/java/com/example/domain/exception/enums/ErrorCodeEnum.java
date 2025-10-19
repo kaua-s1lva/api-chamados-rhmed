@@ -13,7 +13,6 @@ public enum ErrorCodeEnum {
     TKT001("Houve um erro ao criar o ticket", "TKT001"),
     TKT002("Houve um erro ao atualizar o ticket", "TKT002"),
     TKT003("Ticket não encontrado", "TKT003"),
-    TKT004("Houve um erro ao analisar o ticket", "TKT004"),
     TKT005("Ticket não corresponde ao usuário logado", "TKT005"),
     TKT006("Mudança de status não permitida", "TKT006"),
 

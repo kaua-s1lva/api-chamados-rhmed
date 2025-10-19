@@ -23,7 +23,7 @@ public class AnalyzeTicketGatewayImpl implements ChangeTicketStatusGateway {
     }
 
     @Override
-    public Boolean change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException {
+    public void change(Long ticketId, TicketActionEnum action, User user, String comment) throws ChangeStateException {
         Ticket ticket = ticketMapper.toTicket(ticketEntityRepository.findById(ticketId).orElseThrow(
             () -> new NotFoundException(ErrorCodeEnum.TKT003.getMessage(), ErrorCodeEnum.TKT003.getCode())
         ));
@@ -32,6 +32,5 @@ public class AnalyzeTicketGatewayImpl implements ChangeTicketStatusGateway {
         }
         ticket.analyze();
         ticketEntityRepository.save(ticketMapper.toTicketEntity(ticket));
-        return true;
     }
 }
