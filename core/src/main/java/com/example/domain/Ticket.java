@@ -2,7 +2,6 @@ package com.example.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import com.example.domain.enums.TicketPriorityEnum;
 import com.example.domain.enums.TicketStatusEnum;
@@ -12,7 +11,7 @@ import com.example.domain.ticketstatus.TicketStatusStateFactory;
 
 public class Ticket {
     private Long id;
-    private String code;
+    private CodeTicket code;
     private String title;
     private String description;
     private LocalDate term;
@@ -27,7 +26,7 @@ public class Ticket {
     }
 
     public String getCode() {
-        return code;
+        return code.getCode();
     }
 
     public String getTitle() {
@@ -67,7 +66,7 @@ public class Ticket {
     }
 
     public Ticket(String title, String description, LocalDate term, TicketPriorityEnum priority, User requester) {
-        this.code = UUID.randomUUID().toString();
+        this.code = new CodeTicket();
         this.title = title;
         this.description = description;
         this.term = term;
@@ -81,7 +80,7 @@ public class Ticket {
     public Ticket(Long id, String code, String title, String description, LocalDate term, TicketPriorityEnum priority,
             User requester, TicketStatusEnum status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
-        this.code = code;
+        this.code = new CodeTicket(code);
         this.title = title;
         this.description = description;
         this.term = term;

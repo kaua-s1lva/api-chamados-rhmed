@@ -18,8 +18,8 @@ import com.example.entity.UserEntity;
 @Service
 public class TokenSecurityService {
 
-    //@Value("${api.security.token.secret}")
-    private String secret = "secret";
+    @Value("${api.security.token.secret}")
+    private String secret;
 
     public String generateToken(UserEntity user) {
         try {
